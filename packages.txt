@@ -1,0 +1,11 @@
+Flask
+celery
+pymongo
+certifi
+pymongo[srv]
+
+
+non python installs
+node.js - https://nodejs.org/en/
+chocolatey - https://chocolatey.org/install ##if not installed with node.js
+rabbitmq - choco install rabbitmq
