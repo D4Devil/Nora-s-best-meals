@@ -1,11 +1,12 @@
 Flask
 celery
-pymongo
-certifi
-pymongo[srv]
-
+Pyrebase
 
 non python installs
 node.js - https://nodejs.org/en/
 chocolatey - https://chocolatey.org/install ##if not installed with node.js
 rabbitmq - choco install rabbitmq
+
+
+Maybe
+flask-cors
