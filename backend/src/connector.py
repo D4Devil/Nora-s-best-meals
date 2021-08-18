@@ -1,25 +1,37 @@
-from random import sample
-from pymongo import MongoClient
 from pprint import pprint
-import certifi
-
-DATABASE_NAME = "birkman-test02"
-CONNECTION_STRING = "mongodb+srv://dm:d4@birkmancluster0.68blf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-SAMPLE_DATA = {"sample_data": 
-                {
-                    "list": [1,2,3]
-                }
-            }
+import pyrebase
+from pyrebase.pyrebase import Database, Firebase
 
 
-def get_database_connection():
-    client = MongoClient(CONNECTION_STRING, tlsCAFile=certifi.where())
-    return client['test-database']
+default_data = {
+        "main_courses":[]
+    }
 
 
-conn = get_database_connection()
-db = conn[DATABASE_NAME]
-collection = db['main-course']
+class FirebaseConnection():
+    firebase_config = {
+            "apiKey": "AIzaSyCBWuMRBxfOtvtHLUE6PLM9LB1Qr4w-5hw",
+            "authDomain": "birkman-13bd4.firebaseapp.com",
+            "projectId": "birkman-13bd4",
+            "storageBucket": "birkman-13bd4.appspot.com",
+            "messagingSenderId": "975918929531",
+            "appId": "1:975918929531:web:7c06ea22177e40e0a2f4de",
+            "databaseURL":"https://birkman-13bd4-default-rtdb.firebaseio.com/"
+        }
 
-pprint(collection)
-id = collection.insert_one({"sample_data":"sample string"}).inserted_id()
+
+    def get_app() -> Firebase:
+        if FirebaseConnection._app == None:
+            pprint("Connecting to firebase")
+            FirebaseConnection._app = pyrebase.initialize_app(FirebaseConnection.firebase_config)
+        return FirebaseConnection._app
+
+
+    def get_database() -> Database:
+        return  FirebaseConnection.get_app().database
+
+
+    _app: Firebase = None
+
+firebase = FirebaseConnection.app()
+pprint(firebase)
