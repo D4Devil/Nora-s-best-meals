@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 #Admin Routs
-@app.route("/menu/", methods=['POST', 'GET'])
+@app.route("", methods=['POST', 'GET'])
 def menu():
     return "<p>Menu page<p>"
 

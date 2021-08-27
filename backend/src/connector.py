@@ -3,11 +3,6 @@ import pyrebase
 from pyrebase.pyrebase import Database, Firebase
 
 
-default_data = {
-        "main_courses":[]
-    }
-
-
 class FirebaseConnection():
     firebase_config = {
             "apiKey": "AIzaSyCBWuMRBxfOtvtHLUE6PLM9LB1Qr4w-5hw",
@@ -19,19 +14,22 @@ class FirebaseConnection():
             "databaseURL":"https://birkman-13bd4-default-rtdb.firebaseio.com/"
         }
 
-
+    @staticmethod
     def get_app() -> Firebase:
         if FirebaseConnection._app == None:
             pprint("Connecting to firebase")
             FirebaseConnection._app = pyrebase.initialize_app(FirebaseConnection.firebase_config)
         return FirebaseConnection._app
 
-
+    @staticmethod
     def get_database() -> Database:
-        return  FirebaseConnection.get_app().database
+        return  FirebaseConnection.get_app().database()
 
+
+    @staticmethod
+    def populate():
+        FirebaseConnection.get_database.push()
 
     _app: Firebase = None
 
-firebase = FirebaseConnection.app()
-pprint(firebase)
+    
