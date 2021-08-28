@@ -28,11 +28,14 @@ for lunch but they shouldn't be able to see what others have requested.
 Technologies
 Database:
 MongoDB
+
 Backend:
 Flask
 Celery
+
 Front:
 Any framework Vue, Angular(preference), React
+
 Upload:
 Github or gitlab
 Add Readme File whit setup instructions 

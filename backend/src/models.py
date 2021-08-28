@@ -1,5 +1,5 @@
 from pyrebase.pyrebase import Database, PyreResponse
-from connector import FirebaseConnection as Fire
+from .connector import FirebaseConnection as Fire
 from pprint import pprint
 
 
@@ -26,6 +26,8 @@ class Model():
     @classmethod
     def update(cls, key:str, data:dict):
         pprint(f"Updating {cls.model_name} register {key} to {data}")
+        Fire.get_database().child(cls.model_name) \
+            .child(key).update(data)
 
     
     @classmethod
@@ -74,55 +76,66 @@ class Desserts(Model):
     def update(cls, key:str, name, description):
         return super().update(key, {'name':name, 'description':description})
 
-############################################################################
 
-def get_dish(key:str) -> Database:
-    return Fire.get_database().child('dishes').child(key).get().val()
+class DayMenu(Model):
+    model_name = 'day_menu'
 
-
-def get_dishes():
-    return Fire.get_database().child('dishes').get().val()
-
-
-def set_dish(name, description = None):
-    dishes_db = Fire.get_database().child('dishes')
-    new_dish = {'name':name, 'description':description}
-    return dishes_db.push(new_dish)
+    @classmethod
+    def set(cls):
+        pass
 
 
-def update_dish(key, name, description):
-    pass
+    @classmethod
+    def update(cls, key, dishes:list, complements:list, desserts:list):
+        return super().update(key, {'dishes':dishes, 'complements':complements, 'desserts':desserts})
 
 
-def remove_dish(key):
-    dishes_db = Fire.get_database().child('dishes')
-    dishes_db.order_by_key().equal_to(key).remove()
+class Order(Model):
+    model_name = 'order'
 
-############################################################
+    @classmethod
+    def set(cls, dish, complement, dessert):
+        return super().set({'dish':dish, 'complement':complement, 'dessert':dessert})
 
 
-if __name__ == '__main__':
+    @classmethod
+    def update(cls, key, dish, complement, dessert):
+        return super().update(key, {'dish':dish, 'complement':complement, 'dessert':dessert})
+
+
+
+def print_model(data):
+    count = 0
+    for key, val in data.items():
+        pprint(f"{count} -> {key} :: {val}")
+        count += 1
+
+
+def test_model():
     pprint(Dishes.get_data())
-
 
     if False:
         for count in range(0, 9):
             set_dish(f"Pozole {count}", "Yummi!")
 
     dishes = Dishes.get_data()
-    if dishes != None:
-        counter = 0
-        pprint('First Data:')
-        for key, val in dishes.items():
-            pprint(f"{counter} -> {key}:{val}")
-            counter += 1
+    print_model(dishes)
     
-    pprint('Select a register to remove')
+    pprint('Select a register to update')
     selection = int(input())
 
     key = list(dishes.keys())[selection]
 
-    pprint(f"Removing: {key}:{get_dish(key)}")
+    pprint(f"Updating: {key}:{Dishes.get(key)}")
 
-    dishes = Dishes.remove(key)
-    pprint(Dishes.get_data())
+    print("enter name: ")
+    name = str(input())
+    print("enter descript")
+    desc = str(input())
+
+    Dishes.update(key, name, desc)
+
+    print_model(Dishes.get_data())
+
+
+Order.get_data()

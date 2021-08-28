@@ -1,16 +1,19 @@
 from flask import Flask, request
+from .models import Dishes
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 #Admin Routs
-@app.route("", methods=['POST', 'GET'])
+@app.route("/", methods=['POST', 'GET'])
 def menu():
-    return "<p>Menu page<p>"
+    return Dishes.get_data()
 
 
-@app.route("/menu/main_courses/", methods=['POST','GET'])
-def main_course():
+@app.route("/admin/", methods=['POST','GET'])
+def main_admin():
     return "<p>Main Courses<p>"
 
 
