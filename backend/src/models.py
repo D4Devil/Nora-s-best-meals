@@ -1,6 +1,7 @@
 from pyrebase.pyrebase import Database, PyreResponse
 from .connector import FirebaseConnection as Fire
 from pprint import pprint
+from datetime import date
 
 
 class Model():
@@ -81,27 +82,50 @@ class DayMenu(Model):
     model_name = 'day_menu'
 
     @classmethod
-    def set(cls):
-        pass
+    def set(cls, dishes:list, complements:list, desserts:list):
+        return super().set(
+            {
+                'dishes':dishes,
+                'complements':complements,
+                'desserts':desserts
+            })
 
 
     @classmethod
     def update(cls, key, dishes:list, complements:list, desserts:list):
-        return super().update(key, {'dishes':dishes, 'complements':complements, 'desserts':desserts})
+        return super().update(key,
+            {
+                'dishes':dishes,
+                'complements':complements,
+                'desserts':desserts
+            })
 
 
 class Order(Model):
     model_name = 'order'
 
     @classmethod
-    def set(cls, dish, complement, dessert):
-        return super().set({'dish':dish, 'complement':complement, 'dessert':dessert})
+    def set(cls, name, dish, complement, dessert): 
+        return super().set(
+            {
+                'customer':name,
+                'date':date.today(),
+                'dish':dish,
+                'complement':complement,
+                'dessert':dessert
+            })
 
 
     @classmethod
-    def update(cls, key, dish, complement, dessert):
-        return super().update(key, {'dish':dish, 'complement':complement, 'dessert':dessert})
-
+    def update(cls, key, name, dish, complement, dessert):
+        date = cls.get(key).get('date')
+        return super().update(key,
+            {
+                'customer': name, 
+                'date':date, 'dish':dish, 
+                'complement':complement, 
+                'dessert':dessert
+            })
 
 
 def print_model(data):
@@ -138,4 +162,20 @@ def test_model():
     print_model(Dishes.get_data())
 
 
-Order.get_data()
+def populate():
+
+    Dishes.set('Tacos', 'Taquitos dorados')
+    Dishes.set('Pollo con mole', '1 pieza de pollo con mole rojo')
+    Dishes.set('Chile relleno', 'Chile relleno capeado con salsa roja')
+    
+    Complements.set('Arroz rojo')
+    Complements.set('Frijoles negros')
+    Complements.set('Arroz blanco')
+    Complements.set('Frijoles charros')
+    Complements.set('Ensalada de lechuga')
+    Complements.set('verduras al vapor')
+
+    Desserts.set('Pay de manzana','pay de manana estilo McDonalds')
+    Desserts.set('Tartaleta de Chocolate', 'Chocolate amargo')
+    Desserts.set('Helado de chocolate', 'Casero')
+

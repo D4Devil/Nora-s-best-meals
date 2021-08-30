@@ -1,6 +1,7 @@
 Flask
 celery
 Pyrebase at https://github.com/nhorvath/Pyrebase4.git #a git fork cause official is bugged
+Flask-User
 
 non python installs
 node.js - https://nodejs.org/en/

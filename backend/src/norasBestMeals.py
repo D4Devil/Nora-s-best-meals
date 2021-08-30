@@ -1,42 +1,33 @@
 from flask import Flask, request
-from .models import Dishes
+from .models import *
 from flask_cors import CORS
 
+
 app = Flask(__name__)
-CORS(app)
+app_cors = CORS(app)
 
 
 #Admin Routs
-@app.route("/", methods=['POST', 'GET'])
-def menu():
+@app.route("/")
+def todays_menu():
+    return DayMenu.get_data()
+
+
+@app.route("/dishes/")
+def dishes():
     return Dishes.get_data()
 
 
-@app.route("/admin/", methods=['POST','GET'])
-def main_admin():
-    return "<p>Main Courses<p>"
-
-
-@app.route("/menu/main_courses/<int:id>")
-def edit_main_course(id):
-    pass
-
-
-@app.route("/menu/complements/")
+@app.route("/complements/")
 def complements():
-    pass
+    return Complements.get_data()
 
 
-@app.route("/menu/complements/<int:id>")
-def edit_complement(id):
-    pass
-
-
-@app.route("/menu/desserts/")
+@app.route("/desserts/")
 def desserts():
-    pass
+    return Desserts.get_data()
 
 
-@app.route("/menu/desserts/<int:id>")
-def edit_dessert(id):
-    pass
+@app.route("/orders/")
+def orders():
+    return Order.get_data()
