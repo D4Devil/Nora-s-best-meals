@@ -1,0 +1,10 @@
+<div style="text-align:center">
+  <h1>Dishes</h1>
+</div>
+<h2>Dishes created so far: </h2>
+<ul>
+  Keys are hidden
+  <li *ngFor="let dish of dishesList">
+  <input type="radio" id={{dish.key}} name="dish" value="">{{dish.name}} : {{dish.description}}
+  </li>
+</ul>

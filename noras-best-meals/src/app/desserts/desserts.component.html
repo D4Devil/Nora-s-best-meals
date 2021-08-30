@@ -1,0 +1,7 @@
+<p>desserts works!</p>
+<h2>Desserts: </h2>
+<ul>
+  <li *ngFor="let dessert of dessertsList">
+  <input type="radio" id={{dessert.key}} name="dessert" value="">{{dessert.name}} : {{dessert.description}}
+  </li>
+</ul>
