@@ -1,6 +1,7 @@
 Flask
 celery
 Pyrebase at https://github.com/nhorvath/Pyrebase4.git #a git fork cause official is bugged
+flask-cors
 Flask-User
 
 non python installs
@@ -10,4 +11,6 @@ rabbitmq - choco install rabbitmq
 
 
 Maybe
-flask-cors
+Flask-MongoEngine #For mongo connection
+-> wheel
+MongoEngine #for drm handdle

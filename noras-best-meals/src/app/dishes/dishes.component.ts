@@ -7,6 +7,7 @@ import { DishesApi } from './dishes-api.service';
   selector: 'app-dishes',
   templateUrl: './dishes.component.html',
 })
+
 export class DishesComponent implements OnInit {
 
   dishesSub: Subscription = new Subscription();

@@ -5,11 +5,11 @@ import {API_URL} from '../env';
 
 @Injectable()
 
-export class DishesApi {
+export class LoginFormApi {
 
     constructor(private http: HttpClient) {
     }
-  
+
     private static _handleError(err: HttpErrorResponse | any) {
       return Observable.throw(err.message || 'Error: Unable to complete request.');
     }
@@ -17,6 +17,6 @@ export class DishesApi {
     // GET list of public, future events
     getDishes(): Observable<any> {
       return this.http
-        .get('${API_URL}/dishes/')
+        .get(`${API_URL}/desserts/`)
     }
   }

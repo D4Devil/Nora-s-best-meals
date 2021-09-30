@@ -9,13 +9,15 @@ import { DessertsComponent } from './desserts/desserts.component';
 import { RouterModule } from '@angular/router';
 import { DessertApi } from './desserts/desserts-api.service';
 import { DishesComponent } from './dishes/dishes.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DessertsComponent,
-    DishesComponent
+    DishesComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -29,4 +31,5 @@ import { DishesComponent } from './dishes/dishes.component';
   providers: [DishesApi, DessertApi],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
